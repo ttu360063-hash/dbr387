@@ -1,0 +1,196 @@
+import { create } from 'zustand';
+
+// Initial dummy data based on the current site
+const initialData = {
+  header: {
+    logo: '/index_files/411c8ff49c773fe065f636fe6df6f1ba.webp',
+    brandName: 'DARKBR387',
+    menu: [
+      { id: '1', label: 'HOME', link: '#' },
+      { id: '2', label: 'VÍDEOS', link: '#' },
+      { id: '3', label: 'CORRIDAS', link: '#' },
+      { id: '4', label: 'DRIFT', link: '#' },
+      { id: '5', label: 'SOBRE', link: '#' },
+      { id: '6', label: 'COMUNIDADE', link: '#' },
+    ],
+    socials: [
+      { id: '1', platform: 'tiktok', url: 'https://www.tiktok.com/@darkbr387' },
+      { id: '2', platform: 'youtube', url: 'https://www.youtube.com/@DarkBr387' },
+      { id: '3', platform: 'discord', url: 'https://discord.gg/Sam6N5GDtu' },
+    ],
+    buttonText: 'ENTRAR NA COMUNIDADE',
+  },
+  hero: {
+    background: '/index_files/fffb3ebf4690d41080aa571506e6cb09.webp',
+    smallText: 'BEM-VINDO AO MUNDO DO',
+    titleHTML: 'DARK<span class="text-red-500">BR387</span>',
+    description: 'CORRIDAS INSANAS, DRIFTS PERFEITOS E\nA COMUNIDADE MAIS ACELERADA.',
+    primaryButton: { text: 'VER ÚLTIMO VÍDEO', url: '#' },
+    secondaryButton: { text: 'ENTRAR NO DISCORD', url: 'https://discord.gg/Sam6N5GDtu' },
+    stats: [
+      { id: '1', value: '+250K', label: 'INSCRITOS', icon: 'youtube' },
+      { id: '2', value: '+15K', label: 'MEMBROS DISCORD', icon: 'users' },
+      { id: '3', value: '+1M', label: 'VIEWS', icon: 'flame' },
+    ],
+  },
+  featuredVideo: {
+    image: '/index_files/4a16b013a2cc80ba2b3ff24d50f20051.webp',
+    smallTitle: 'Último Lançamento',
+    title: 'Novo drift insano 🔥',
+    category: 'Shorts',
+    info: 'Publicado recentemente',
+    description: 'Mais um drift pra vocês! Deixa o like e se inscreve no canal!',
+    duration: '0:49',
+    button: { text: 'ASSISTIR NO YOUTUBE', url: '#' }
+  },
+  recentVideos: [
+    {
+      id: '1',
+      title: "Drift impossível no Forza 🔥",
+      image: "/index_files/4a16b013a2cc80ba2b3ff24d50f20051.webp",
+      date: "Hoje",
+      views: "48.200",
+      duration: "10:21",
+      category: "Drift",
+      color: "#e50914"
+    },
+    {
+      id: '2',
+      title: "Role noturno insano no GTA",
+      image: "/index_files/fffb3ebf4690d41080aa571506e6cb09.webp",
+      date: "2 dias atrás",
+      views: "31.500",
+      duration: "8:15",
+      category: "Corridas",
+      color: "#ff6b35"
+    },
+    {
+      id: '3',
+      title: "Setup novo, resultado INSANO",
+      image: "/index_files/61213b03d22987dd26ce7c6696ece087.webp",
+      date: "4 dias atrás",
+      views: "19.800",
+      duration: "6:58",
+      category: "Gameplays",
+      color: "#7c3aed"
+    },
+    {
+      id: '4',
+      title: "Corrida épica contra fãs da comunidade",
+      image: "/index_files/8482d4bb692521543a37151bbf2e4add.webp",
+      date: "1 semana atrás",
+      views: "52.300",
+      duration: "12:44",
+      category: "Corridas",
+      color: "#ff6b35"
+    }
+  ],
+  categories: [
+    {
+      id: '1',
+      name: "Corridas",
+      count: 48,
+      image: "/index_files/fffb3ebf4690d41080aa571506e6cb09.webp",
+      color: "#ff6b35",
+      bgFilter: "brightness(0.35) saturate(1.2)"
+    },
+    {
+      id: '2',
+      name: "Drift",
+      count: 63,
+      image: "/index_files/4a16b013a2cc80ba2b3ff24d50f20051.webp",
+      color: "#e50914",
+      bgFilter: "brightness(0.35) saturate(1.2)"
+    },
+    {
+      id: '3',
+      name: "Gameplays",
+      count: 27,
+      image: "/index_files/61213b03d22987dd26ce7c6696ece087.webp",
+      color: "#7c3aed",
+      bgFilter: "brightness(0.35) saturate(1.2)"
+    },
+    {
+      id: '4',
+      name: "Desafios",
+      count: 19,
+      image: "/index_files/8482d4bb692521543a37151bbf2e4add.webp",
+      color: "#f59e0b",
+      bgFilter: "brightness(0.35) saturate(1.2)"
+    }
+  ],
+  about: {
+    titleHTML: 'SOBRE O DARK <span class="text-red-500">BR387</span>',
+    description: 'DarkBr387 cria conteúdo focado em corridas, drift e momentos insanos dentro dos jogos. Aqui é o ponto de encontro da comunidade para acompanhar vídeos novos, participar dos desafios e trocar ideia.',
+    buttonText: 'SAIBA MAIS SOBRE MIM',
+    image: '/index_files/411c8ff49c773fe065f636fe6df6f1ba.webp',
+  },
+  community: {
+    titleHTML: 'FAÇA PARTE DA <span class="text-indigo-400">EQUIPE</span>',
+    description: 'Entre no Discord e faça parte da nossa comunidade! Eventos, sorteios, dicas, conversas e muita corrida que você espera.',
+    buttonText: 'ENTRAR NO DISCORD',
+    url: 'https://discord.gg/Sam6N5GDtu',
+  },
+  socialMediaCards: [
+    {
+      id: '1',
+      platform: 'tiktok',
+      name: 'TIKTOK',
+      user: '@darkbr387',
+      url: 'https://www.tiktok.com/@darkbr387',
+      buttonText: 'SEGUIR',
+      bgColor: 'bg-black',
+      textColor: 'text-white'
+    },
+    {
+      id: '2',
+      platform: 'youtube',
+      name: 'YOUTUBE',
+      user: 'DarkBr387',
+      url: 'https://www.youtube.com/@DarkBr387',
+      buttonText: 'INSCREVER-SE',
+      bgColor: 'bg-red-600',
+      textColor: 'text-white'
+    },
+    {
+      id: '3',
+      platform: 'discord',
+      name: 'DISCORD',
+      user: 'Comunidade DarkBr387',
+      url: 'https://discord.gg/Sam6N5GDtu',
+      buttonText: 'ENTRAR',
+      bgColor: 'bg-[#5865F2]',
+      textColor: 'text-white'
+    }
+  ],
+  footer: {
+    description: 'O portal oficial do DarkBr387. Corridas insanas, drifts perfeitos e a comunidade mais acelerada do Brasil.',
+    copyright: '© 2024 DarkBR387. Todos os direitos reservados.',
+  },
+  auth: {
+    isAuthenticated: false,
+  }
+};
+
+const useStore = create((set) => ({
+  data: initialData,
+  
+  // Authentication
+  login: () => set((state) => ({ data: { ...state.data, auth: { isAuthenticated: true } } })),
+  logout: () => set((state) => ({ data: { ...state.data, auth: { isAuthenticated: false } } })),
+
+  // Update specific sections
+  updateHeader: (newHeader) => set((state) => ({ data: { ...state.data, header: { ...state.data.header, ...newHeader } } })),
+  updateHero: (newHero) => set((state) => ({ data: { ...state.data, hero: { ...state.data.hero, ...newHero } } })),
+  updateFeaturedVideo: (newVideo) => set((state) => ({ data: { ...state.data, featuredVideo: { ...state.data.featuredVideo, ...newVideo } } })),
+  
+  setRecentVideos: (videos) => set((state) => ({ data: { ...state.data, recentVideos: videos } })),
+  setCategories: (categories) => set((state) => ({ data: { ...state.data, categories: categories } })),
+  setSocialMediaCards: (cards) => set((state) => ({ data: { ...state.data, socialMediaCards: cards } })),
+
+  updateAbout: (newAbout) => set((state) => ({ data: { ...state.data, about: { ...state.data.about, ...newAbout } } })),
+  updateCommunity: (newComm) => set((state) => ({ data: { ...state.data, community: { ...state.data.community, ...newComm } } })),
+  updateFooter: (newFooter) => set((state) => ({ data: { ...state.data, footer: { ...state.data.footer, ...newFooter } } })),
+}));
+
+export default useStore;
