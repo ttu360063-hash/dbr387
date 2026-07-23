@@ -10,18 +10,25 @@ import Footer from './components/Footer'
 import AdminLoginModal from './components/AdminLoginModal'
 import LoadingScreen from './components/LoadingScreen'
 import BackgroundBlobs from './components/BackgroundBlobs'
+import useStore from './store/useStore'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
+  const fetchData = useStore((state) => state.fetchData)
+  const isLoaded = useStore((state) => state.isLoaded)
 
   useEffect(() => {
-    // Simulate loading time (e.g. fetching data, loading images)
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
+    fetchData();
+  }, [fetchData]);
 
-    return () => clearTimeout(timer)
-  }, [])
+  useEffect(() => {
+    if (isLoaded) {
+      const timer = setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [isLoaded])
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] relative">

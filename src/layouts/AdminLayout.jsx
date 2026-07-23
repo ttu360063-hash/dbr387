@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Outlet, Navigate, Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import useStore from '../store/useStore';
@@ -6,6 +7,34 @@ import { Save, Eye, RotateCcw, X, Upload } from 'lucide-react';
 
 export default function AdminLayout() {
   const { auth } = useStore((state) => state.data);
+  const fullData = useStore((state) => state.data);
+  const [isPublishing, setIsPublishing] = useState(false);
+
+  const handlePublish = async () => {
+    setIsPublishing(true);
+    const toastId = toast.loading('Enviando código para o GitHub (Deploy)...');
+    
+    try {
+      const response = await fetch('/api/publish', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: fullData })
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        toast.success('Publicado! O Vercel está atualizando o site.', { id: toastId });
+      } else {
+        toast.error('Erro: ' + (result.error || 'Falha ao publicar'), { id: toastId });
+        console.error(result);
+      }
+    } catch (error) {
+      toast.error('Erro de conexão ao publicar.', { id: toastId });
+    } finally {
+      setIsPublishing(false);
+    }
+  };
 
   if (!auth.isAuthenticated) {
     return (
@@ -41,9 +70,9 @@ export default function AdminLayout() {
             <Save className="w-4 h-4" />
             Salvar Alterações
           </button>
-          <button className="btn-secondary px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+          <button onClick={handlePublish} disabled={isPublishing} className="btn-secondary px-6 py-2 rounded-lg text-sm font-bold flex items-center gap-2 disabled:opacity-50">
             <Upload className="w-4 h-4" />
-            Publicar
+            {isPublishing ? 'Publicando...' : 'Publicar'}
           </button>
         </div>
         

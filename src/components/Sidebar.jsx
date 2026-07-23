@@ -53,6 +53,10 @@ export default function Sidebar() {
           Sistema
         </div>
         <nav className="space-y-1 px-2">
+          <Link to="/admin/media" className="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm font-semibold text-gray-400 hover:text-white hover:bg-white/5">
+            <Image className="w-4 h-4" />
+            Mídias
+          </Link>
           <Link to="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm font-semibold text-gray-400 hover:text-white hover:bg-white/5">
             <Settings className="w-4 h-4" />
             Configurações
