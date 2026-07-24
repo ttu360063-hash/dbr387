@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet, Navigate, Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import useStore from '../store/useStore';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import { Save, Eye, RotateCcw, X, Upload } from 'lucide-react';
 
 export default function AdminLayout() {
