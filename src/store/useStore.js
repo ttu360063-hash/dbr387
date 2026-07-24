@@ -33,8 +33,8 @@ const useStore = create((set, get) => ({
   },
   
   // Authentication
-  login: () => set((state) => ({ data: { ...state.data, auth: { isAuthenticated: true } } })),
-  logout: () => set((state) => ({ data: { ...state.data, auth: { isAuthenticated: false } } })),
+  login: (token) => set((state) => ({ data: { ...state.data, auth: { isAuthenticated: true, token } } })),
+  logout: () => set((state) => ({ data: { ...state.data, auth: { isAuthenticated: false, token: null } } })),
 
   // Update specific sections
   updateHeader: (newHeader) => set((state) => ({ data: { ...state.data, header: { ...state.data.header, ...newHeader } } })),

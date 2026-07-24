@@ -18,7 +18,7 @@ export default function AdminLayout() {
       const response = await fetch('/api/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: fullData })
+        body: JSON.stringify({ data: fullData, secret: auth.token })
       });
       
       const result = await response.json();

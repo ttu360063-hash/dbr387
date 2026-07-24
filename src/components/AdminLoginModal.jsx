@@ -25,14 +25,31 @@ export default function AdminLoginModal() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (email === 'admin@darkbr387.com' && password === 'DarkBr387@Admin') {
-      login();
-      setIsOpen(false);
-      navigate('/admin');
-    } else {
-      setError('Credenciais inválidas!');
+    setError('');
+    setIsLoading(true);
+    
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        login(password);
+        setIsOpen(false);
+        navigate('/admin');
+      } else {
+        setError(result.error || 'Credenciais inválidas!');
+      }
+    } catch (err) {
+      setError('Erro ao conectar com o servidor.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -100,9 +117,10 @@ export default function AdminLoginModal() {
 
               <button 
                 type="submit"
-                className="w-full btn-primary py-3 rounded-lg text-sm font-bold tracking-widest mt-2"
+                disabled={isLoading}
+                className="w-full btn-primary py-3 rounded-lg text-sm font-bold tracking-widest mt-2 disabled:opacity-50"
               >
-                ENTRAR NO PAINEL
+                {isLoading ? 'ENTRANDO...' : 'ENTRAR NO PAINEL'}
               </button>
             </form>
           </motion.div>
