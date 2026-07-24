@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useStore from '../../store/useStore';
 import toast from 'react-hot-toast';
 import { ArrowUp, ArrowDown, Trash2, Plus, Copy } from 'lucide-react';
@@ -9,9 +9,12 @@ export default function ManageCategories() {
   
   const [cats, setCats] = useState(categories);
 
-  const handleSave = () => {
+  useEffect(() => {
     setCategories(cats);
-    toast.success('Categorias salvas com sucesso!');
+  }, [cats, setCategories]);
+
+  const handleSave = () => {
+    toast.success('Categorias salvas localmente! (Não esqueça de Publicar)');
   };
 
   const updateCat = (id, field, value) => {

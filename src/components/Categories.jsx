@@ -1,8 +1,12 @@
 import useStore from '../store/useStore';
+import { Link } from 'react-router-dom';
 
 function CategoryCard({ image, name, count, color, bgFilter }) {
+  // Safe category link (e.g. "Corridas" -> "/corridas", "Gameplays" -> "/gameplays")
+  const catLink = `/${name.toLowerCase().replace(/\s+/g, '-')}`;
+
   return (
-    <button className="w-full relative rounded-xl overflow-hidden text-left group min-h-[160px]">
+    <Link to={catLink} className="w-full block relative rounded-xl overflow-hidden text-left group min-h-[160px]">
       <img src={image} alt={name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" style={{ filter: bgFilter }} />
       <div className="absolute inset-0" style={{ background: `linear-gradient(135deg, ${color}30 0%, rgba(0, 0, 0, 0.6) 100%)` }}></div>
       <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}></div>
@@ -15,7 +19,7 @@ function CategoryCard({ image, name, count, color, bgFilter }) {
           {count} vídeos
         </div>
       </div>
-    </button>
+    </Link>
   );
 }
 
