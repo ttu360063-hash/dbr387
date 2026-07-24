@@ -29,6 +29,8 @@ createRoot(document.getElementById('root')).render(
           <Route path="videos" element={<VideosPage />} />
           <Route path="corridas" element={<VideosPage />} />
           <Route path="drift" element={<VideosPage />} />
+          <Route path="gameplays" element={<VideosPage />} />
+          <Route path="desafios" element={<VideosPage />} />
           <Route path="sobre" element={<AboutPage />} />
           <Route path="comunidade" element={<AboutPage />} />
         </Route>

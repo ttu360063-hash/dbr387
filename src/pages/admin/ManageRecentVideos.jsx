@@ -99,7 +99,8 @@ export default function ManageRecentVideos() {
                     views: "0",
                     duration: data.duration,
                     category: "Geral",
-                    color: "#ffffff"
+                    color: "#ffffff",
+                    url: input.value
                   }, ...videos]);
                   toast.success('Vídeo adicionado ao topo!', { id: toastId });
                   input.value = '';
@@ -153,7 +154,14 @@ export default function ManageRecentVideos() {
                   className="w-full bg-[#0a0a0a] border border-white/10 rounded-md px-3 py-1.5 text-sm text-white focus:border-red-500 outline-none"
                 />
               </div>
-              <div>
+              <div className="md:col-span-2">
+                <label className="block text-xs font-bold text-gray-500 mb-1">URL do Vídeo (YouTube)</label>
+                <input 
+                  type="text" value={video.url || ''} onChange={(e) => updateVideo(video.id, 'url', e.target.value)}
+                  className="w-full bg-[#0a0a0a] border border-white/10 rounded-md px-3 py-1.5 text-sm text-white focus:border-red-500 outline-none"
+                />
+              </div>
+              <div className="md:col-span-2">
                 <label className="block text-xs font-bold text-gray-500 mb-1">URL da Imagem</label>
                 <input 
                   type="text" value={video.image} onChange={(e) => updateVideo(video.id, 'image', e.target.value)}

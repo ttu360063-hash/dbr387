@@ -2,9 +2,9 @@ import useStore from '../../store/useStore';
 import { Play, Clock } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
-function VideoCard({ image, title, date, views, duration, category, color }) {
+function VideoCard({ image, title, date, views, duration, category, color, url }) {
   return (
-    <div className="glass-card rounded-xl overflow-hidden cursor-pointer group relative">
+    <a href={url || '#'} target={url ? "_blank" : "_self"} rel="noopener noreferrer" className="glass-card rounded-xl overflow-hidden cursor-pointer group relative block">
       <div className="relative overflow-hidden aspect-video">
         <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
@@ -31,7 +31,7 @@ function VideoCard({ image, title, date, views, duration, category, color }) {
           <span>{views} views</span>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -49,6 +49,12 @@ export default function VideosPage() {
   } else if (location.pathname.includes('/drift')) {
     categoryFilter = 'drift';
     title = "DRIFT";
+  } else if (location.pathname.includes('/gameplays')) {
+    categoryFilter = 'gameplays';
+    title = "GAMEPLAYS";
+  } else if (location.pathname.includes('/desafios')) {
+    categoryFilter = 'desafios';
+    title = "DESAFIOS";
   }
 
   const filteredVideos = categoryFilter 

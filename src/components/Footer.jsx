@@ -1,6 +1,7 @@
 import { TikTokIcon, YouTubeIcon, DiscordIcon } from './Icons';
 import { ExternalLink } from 'lucide-react';
 import useStore from '../store/useStore';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const { header, footer, socialMediaCards } = useStore((state) => state.data);
@@ -44,9 +45,9 @@ export default function Footer() {
             <ul className="space-y-3">
               {header.menu.map((item) => (
                 <li key={item.id}>
-                  <a href={item.link} className="text-sm text-gray-500 hover:text-white transition-colors duration-200">
+                  <Link to={item.link} className="text-sm text-gray-500 hover:text-white transition-colors duration-200">
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
