@@ -8,6 +8,7 @@ export default function AdminLoginModal() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const login = useStore((state) => state.login);
   const navigate = useNavigate();
