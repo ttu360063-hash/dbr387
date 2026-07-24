@@ -59,8 +59,58 @@ export default function ManageRecentVideos() {
         </div>
         <button onClick={addVideo} className="btn-secondary flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-sm">
           <Plus className="w-4 h-4" />
-          Adicionar Vídeo
+          Adicionar Manualmente
         </button>
+      </div>
+
+      <div className="bg-[#111] border border-red-500/30 rounded-xl p-6 mb-8 shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+        <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
+          <span className="text-red-500">▶</span> Adicionar Rápido via YouTube
+        </h2>
+        <div className="flex gap-4 items-end">
+          <div className="flex-1">
+            <input 
+              type="text" 
+              id="quick-youtube-url"
+              placeholder="Cole o link do vídeo aqui..." 
+              className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500 text-sm" 
+            />
+          </div>
+          <button 
+            type="button" 
+            onClick={async () => {
+              const input = document.getElementById('quick-youtube-url');
+              if (!input.value) return toast.error('Insira o link primeiro.');
+              
+              const toastId = toast.loading('Buscando vídeo...');
+              try {
+                const res = await fetch(`/api/youtube?url=${encodeURIComponent(input.value)}`);
+                const data = await res.json();
+                if (res.ok) {
+                  setVideos([{
+                    id: Date.now().toString(),
+                    title: data.title,
+                    image: data.thumbnail,
+                    date: "Agora",
+                    views: "0",
+                    duration: data.duration,
+                    category: "Geral",
+                    color: "#ffffff"
+                  }, ...videos]);
+                  toast.success('Vídeo adicionado ao topo!', { id: toastId });
+                  input.value = '';
+                } else {
+                  toast.error(data.error || 'Erro ao buscar dados.', { id: toastId });
+                }
+              } catch (e) {
+                toast.error('Erro de conexão.', { id: toastId });
+              }
+            }} 
+            className="btn-primary px-6 py-3 rounded-lg font-bold text-sm whitespace-nowrap h-[46px]"
+          >
+            Importar Vídeo
+          </button>
+        </div>
       </div>
 
       <div className="space-y-4 mb-8">
