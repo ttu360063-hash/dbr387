@@ -3,6 +3,9 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import PublicLayout from './layouts/PublicLayout.jsx'
+import VideosPage from './pages/public/VideosPage.jsx'
+import AboutPage from './pages/public/AboutPage.jsx'
 import AdminLayout from './layouts/AdminLayout.jsx'
 import Dashboard from './pages/admin/Dashboard.jsx'
 import ManageHeader from './pages/admin/ManageHeader.jsx'
@@ -21,7 +24,14 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<PublicLayout />}>
+          <Route index element={<App />} />
+          <Route path="videos" element={<VideosPage />} />
+          <Route path="corridas" element={<VideosPage />} />
+          <Route path="drift" element={<VideosPage />} />
+          <Route path="sobre" element={<AboutPage />} />
+          <Route path="comunidade" element={<AboutPage />} />
+        </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="header" element={<ManageHeader />} />

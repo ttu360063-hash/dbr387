@@ -6,32 +6,32 @@
       {
         "id": "1",
         "label": "HOME",
-        "link": "#"
+        "link": "/"
       },
       {
         "id": "2",
         "label": "VÍDEOS",
-        "link": "#"
+        "link": "/videos"
       },
       {
         "id": "3",
         "label": "CORRIDAS",
-        "link": "#"
+        "link": "/corridas"
       },
       {
         "id": "4",
         "label": "DRIFT",
-        "link": "#"
+        "link": "/drift"
       },
       {
         "id": "5",
         "label": "SOBRE",
-        "link": "#"
+        "link": "/sobre"
       },
       {
         "id": "6",
         "label": "COMUNIDADE",
-        "link": "#"
+        "link": "/comunidade"
       }
     ],
     "socials": [

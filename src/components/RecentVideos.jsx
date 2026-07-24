@@ -1,9 +1,11 @@
 import { Play, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef } from 'react';
 import useStore from '../store/useStore';
+import { Link } from 'react-router-dom';
 
 function VideoCard({ image, title, date, views, duration, category, color }) {
   return (
-    <div className="glass-card rounded-xl overflow-hidden cursor-pointer group relative">
+    <div className="glass-card rounded-xl overflow-hidden cursor-pointer group relative w-[85vw] sm:w-[calc(50%-0.5rem)] lg:w-[calc(23.5%)] flex-shrink-0 snap-start">
       <div className="relative overflow-hidden aspect-video">
         <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
@@ -36,6 +38,17 @@ function VideoCard({ image, title, date, views, duration, category, color }) {
 
 export default function RecentVideos() {
   const { recentVideos } = useStore((state) => state.data);
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth * 0.8;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   return (
     <section className="py-16">
@@ -49,19 +62,23 @@ export default function RecentVideos() {
           </div>
           
           <div className="flex items-center gap-3">
-            <button className="btn-secondary px-3 py-2 rounded-lg text-xs font-bold tracking-widest">
+            <Link to="/videos" className="btn-secondary px-3 py-2 rounded-lg text-xs font-bold tracking-widest hidden sm:block">
               VER TODOS
-            </button>
-            <button className="btn-secondary p-2 rounded-md disabled:opacity-50" aria-label="Anterior">
+            </Link>
+            <button onClick={() => scroll('left')} className="btn-secondary p-2 rounded-md hover:bg-white/10 transition-colors" aria-label="Anterior">
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <button className="btn-secondary p-2 rounded-md" aria-label="Próximo">
+            <button onClick={() => scroll('right')} className="btn-secondary p-2 rounded-md hover:bg-white/10 transition-colors" aria-label="Próximo">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* CSS Slider */}
+        <div 
+          ref={scrollRef}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 no-scrollbar scroll-smooth"
+        >
           {recentVideos.map((video) => (
             <VideoCard key={video.id} {...video} />
           ))}

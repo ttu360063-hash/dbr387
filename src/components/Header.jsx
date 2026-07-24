@@ -1,6 +1,7 @@
 import { Menu } from 'lucide-react';
 import { TikTokIcon, YouTubeIcon, DiscordIcon } from './Icons';
 import useStore from '../store/useStore';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const { header } = useStore((state) => state.data);
@@ -11,20 +12,20 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           
           {/* Logo */}
-          <button className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-red-600 flex-shrink-0">
               <img src={header.logo} alt={header.brandName} className="w-full h-full object-cover" />
             </div>
             <span className="text-xl font-black tracking-tight hidden sm:block font-sans" dangerouslySetInnerHTML={{ __html: header.brandName.replace('BR387', '<span class="text-red-500">BR387</span>') }}>
             </span>
-          </button>
+          </Link>
 
           {/* Menu */}
           <div className="hidden md:flex items-center gap-6">
             {header.menu.map((item, i) => (
-              <a key={item.id} href={item.link} className={`nav-link text-xs font-semibold tracking-widest transition-colors ${i === 0 ? 'text-red-500' : 'text-gray-400 hover:text-white'}`}>
+              <Link key={item.id} to={item.link} className={`nav-link text-xs font-semibold tracking-widest transition-colors ${i === 0 ? 'text-red-500' : 'text-gray-400 hover:text-white'}`}>
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
