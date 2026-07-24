@@ -3,17 +3,53 @@
     "logo": "/index_files/411c8ff49c773fe065f636fe6df6f1ba.webp",
     "brandName": "DARKBR387",
     "menu": [
-      { "id": "1", "label": "HOME", "link": "#" },
-      { "id": "2", "label": "VÍDEOS", "link": "#" },
-      { "id": "3", "label": "CORRIDAS", "link": "#" },
-      { "id": "4", "label": "DRIFT", "link": "#" },
-      { "id": "5", "label": "SOBRE", "link": "#" },
-      { "id": "6", "label": "COMUNIDADE", "link": "#" }
+      {
+        "id": "1",
+        "label": "HOME",
+        "link": "#"
+      },
+      {
+        "id": "2",
+        "label": "VÍDEOS",
+        "link": "#"
+      },
+      {
+        "id": "3",
+        "label": "CORRIDAS",
+        "link": "#"
+      },
+      {
+        "id": "4",
+        "label": "DRIFT",
+        "link": "#"
+      },
+      {
+        "id": "5",
+        "label": "SOBRE",
+        "link": "#"
+      },
+      {
+        "id": "6",
+        "label": "COMUNIDADE",
+        "link": "#"
+      }
     ],
     "socials": [
-      { "id": "1", "platform": "tiktok", "url": "https://www.tiktok.com/@darkbr387" },
-      { "id": "2", "platform": "youtube", "url": "https://www.youtube.com/@DarkBr387" },
-      { "id": "3", "platform": "discord", "url": "https://discord.gg/Sam6N5GDtu" }
+      {
+        "id": "1",
+        "platform": "tiktok",
+        "url": "https://www.tiktok.com/@darkbr387"
+      },
+      {
+        "id": "2",
+        "platform": "youtube",
+        "url": "https://www.youtube.com/@DarkBr387"
+      },
+      {
+        "id": "3",
+        "platform": "discord",
+        "url": "https://discord.gg/Sam6N5GDtu"
+      }
     ],
     "buttonText": "ENTRAR NA COMUNIDADE"
   },
@@ -22,23 +58,47 @@
     "smallText": "BEM-VINDO AO MUNDO DO",
     "titleHTML": "DARK<span class=\"text-red-500\">BR387</span>",
     "description": "CORRIDAS INSANAS, DRIFTS PERFEITOS E\nA COMUNIDADE MAIS ACELERADA.",
-    "primaryButton": { "text": "VER ÚLTIMO VÍDEO", "url": "#" },
-    "secondaryButton": { "text": "ENTRAR NO DISCORD", "url": "https://discord.gg/Sam6N5GDtu" },
+    "primaryButton": {
+      "text": "VER ÚLTIMO VÍDEO",
+      "url": "#"
+    },
+    "secondaryButton": {
+      "text": "ENTRAR NO DISCORD",
+      "url": "https://discord.gg/Sam6N5GDtu"
+    },
     "stats": [
-      { "id": "1", "value": "+250K", "label": "INSCRITOS", "icon": "youtube" },
-      { "id": "2", "value": "+15K", "label": "MEMBROS DISCORD", "icon": "users" },
-      { "id": "3", "value": "+1M", "label": "VIEWS", "icon": "flame" }
+      {
+        "id": "1",
+        "value": "+250K",
+        "label": "INSCRITOS",
+        "icon": "youtube"
+      },
+      {
+        "id": "2",
+        "value": "+15K",
+        "label": "MEMBROS DISCORD",
+        "icon": "users"
+      },
+      {
+        "id": "3",
+        "value": "+1M",
+        "label": "VIEWS",
+        "icon": "flame"
+      }
     ]
   },
   "featuredVideo": {
-    "image": "/index_files/4a16b013a2cc80ba2b3ff24d50f20051.webp",
+    "image": "https://www.image2url.com/r2/default/images/1784766298137-8008306c-64d4-4948-bffa-7bed48156b41.png",
     "smallTitle": "Último Lançamento",
     "title": "Novo drift insano 🔥",
     "category": "Shorts",
     "info": "Publicado recentemente",
     "description": "Mais um drift pra vocês! Deixa o like e se inscreve no canal!",
     "duration": "0:49",
-    "button": { "text": "ASSISTIR NO YOUTUBE", "url": "#" }
+    "button": {
+      "text": "ASSISTIR NO YOUTUBE",
+      "url": "#"
+    }
   },
   "recentVideos": [
     {
@@ -165,6 +225,7 @@
     "copyright": "© 2024 DarkBR387. Todos os direitos reservados."
   },
   "auth": {
-    "isAuthenticated": false
+    "isAuthenticated": true,
+    "token": "DarkBr387@Admin"
   }
 }
