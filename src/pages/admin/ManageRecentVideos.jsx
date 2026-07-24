@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useStore from '../../store/useStore';
 import toast from 'react-hot-toast';
 import { ArrowUp, ArrowDown, Trash2, Plus, Copy } from 'lucide-react';
@@ -9,9 +9,13 @@ export default function ManageRecentVideos() {
   
   const [videos, setVideos] = useState(recentVideos);
 
-  const handleSave = () => {
+  // Auto-sync local state to global store so "Publicar" always has the latest data
+  useEffect(() => {
     setRecentVideos(videos);
-    toast.success('Vídeos salvos com sucesso!');
+  }, [videos, setRecentVideos]);
+
+  const handleSave = () => {
+    toast.success('Vídeos salvos localmente! (Não esqueça de Publicar)');
   };
 
   const updateVideo = (id, field, value) => {

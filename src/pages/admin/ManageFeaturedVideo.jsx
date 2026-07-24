@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useStore from '../../store/useStore';
 import toast from 'react-hot-toast';
 
@@ -10,10 +10,13 @@ export default function ManageFeaturedVideo() {
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [isFetching, setIsFetching] = useState(false);
 
+  useEffect(() => {
+    updateFeaturedVideo(video);
+  }, [video, updateFeaturedVideo]);
+
   const handleSave = (e) => {
     e.preventDefault();
-    updateFeaturedVideo(video);
-    toast.success('Destaque salvo com sucesso!');
+    toast.success('Destaque salvo localmente! (Não esqueça de Publicar)');
   };
 
   const handleAutoFill = async () => {
