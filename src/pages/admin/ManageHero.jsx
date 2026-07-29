@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useStore from '../../store/useStore';
 import toast from 'react-hot-toast';
 
@@ -11,11 +11,20 @@ export default function ManageHero() {
   const [titleHTML, setTitleHTML] = useState(hero.titleHTML);
   const [description, setDescription] = useState(hero.description);
   const [primaryButton, setPrimaryButton] = useState(hero.primaryButton);
+  const [secondaryButton, setSecondaryButton] = useState(hero.secondaryButton || { text: '', url: '' });
+  const [stats, setStats] = useState(hero.stats || []);
+
+  useEffect(() => {
+    updateHero({ background, smallText, titleHTML, description, primaryButton, secondaryButton, stats });
+  }, [background, smallText, titleHTML, description, primaryButton, secondaryButton, stats, updateHero]);
 
   const handleSave = (e) => {
     e.preventDefault();
-    updateHero({ background, smallText, titleHTML, description, primaryButton });
-    toast.success('Hero salvo com sucesso!');
+    toast.success('Hero salvo localmente! (Não esqueça de Publicar)');
+  };
+
+  const updateStat = (id, field, value) => {
+    setStats(stats.map(s => s.id === id ? { ...s, [field]: value } : s));
   };
 
   return (
@@ -77,26 +86,87 @@ export default function ManageHero() {
         </div>
 
         <div className="bg-[#111] border border-white/10 rounded-xl p-6">
-          <h2 className="text-xl font-bold mb-6">Botão Primário</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-bold text-gray-400 mb-2">Texto</label>
-              <input 
-                type="text" 
-                value={primaryButton.text}
-                onChange={(e) => setPrimaryButton({...primaryButton, text: e.target.value})}
-                className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
-              />
+          <h2 className="text-xl font-bold mb-6">Botões</h2>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="border border-white/5 p-4 rounded-lg">
+              <h3 className="text-sm font-bold mb-4 text-gray-300">Botão Primário</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2">Texto</label>
+                  <input 
+                    type="text" 
+                    value={primaryButton.text}
+                    onChange={(e) => setPrimaryButton({...primaryButton, text: e.target.value})}
+                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2">Link</label>
+                  <input 
+                    type="text" 
+                    value={primaryButton.url}
+                    onChange={(e) => setPrimaryButton({...primaryButton, url: e.target.value})}
+                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-bold text-gray-400 mb-2">Link</label>
-              <input 
-                type="text" 
-                value={primaryButton.url}
-                onChange={(e) => setPrimaryButton({...primaryButton, url: e.target.value})}
-                className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
-              />
+            <div className="border border-white/5 p-4 rounded-lg">
+              <h3 className="text-sm font-bold mb-4 text-gray-300">Botão Secundário</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2">Texto</label>
+                  <input 
+                    type="text" 
+                    value={secondaryButton.text}
+                    onChange={(e) => setSecondaryButton({...secondaryButton, text: e.target.value})}
+                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-gray-500 mb-2">Link</label>
+                  <input 
+                    type="text" 
+                    value={secondaryButton.url}
+                    onChange={(e) => setSecondaryButton({...secondaryButton, url: e.target.value})}
+                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
+                  />
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+
+        <div className="bg-[#111] border border-white/10 rounded-xl p-6">
+          <h2 className="text-xl font-bold mb-6">Estatísticas</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {stats.map((stat) => (
+              <div key={stat.id} className="border border-white/5 p-4 rounded-lg">
+                <div className="mb-4">
+                  <span className="text-xs font-bold text-gray-500 uppercase">{stat.icon}</span>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 mb-2">Valor (ex: +250K)</label>
+                    <input 
+                      type="text" 
+                      value={stat.value}
+                      onChange={(e) => updateStat(stat.id, 'value', e.target.value)}
+                      className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-gray-500 mb-2">Rótulo (ex: INSCRITOS)</label>
+                    <input 
+                      type="text" 
+                      value={stat.label}
+                      onChange={(e) => updateStat(stat.id, 'label', e.target.value)}
+                      className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-red-500"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
