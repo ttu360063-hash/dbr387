@@ -69,19 +69,19 @@
     "stats": [
       {
         "id": "1",
-        "value": "+250K",
+        "value": "597",
         "label": "INSCRITOS",
         "icon": "youtube"
       },
       {
         "id": "2",
-        "value": "+15K",
+        "value": "77",
         "label": "MEMBROS DISCORD",
         "icon": "users"
       },
       {
         "id": "3",
-        "value": "+1M",
+        "value": "0",
         "label": "VIEWS",
         "icon": "flame"
       }
