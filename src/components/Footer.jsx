@@ -74,6 +74,16 @@ export default function Footer() {
           <div className="text-xs text-gray-600 flex items-center gap-2">
             <span>{footer.copyright}</span>
           </div>
+          
+          <a 
+            href="https://www.instagram.com/certhus.web/?__pwa=1" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-xs text-gray-500 hover:text-red-500 transition-colors flex items-center gap-1 font-medium bg-white/5 px-3 py-1.5 rounded-full"
+          >
+            Desenvolvido por: <span className="text-white font-bold ml-1">Certhus Desenvolvimento de Softwares</span>
+          </a>
+
           <div className="flex items-center gap-6 text-xs text-gray-600">
             <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
             <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
